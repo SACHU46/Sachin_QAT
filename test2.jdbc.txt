@@ -1,0 +1,48 @@
+import java.sql.*;
+
+public class test  {
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException{
+		
+		String url = "jdbc:oracle:thin:@localhost:1521/xe";
+		String username = "c##example";
+		String password = "example";
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		Connection con = DriverManager.getConnection(url,username,password);
+		System.out.println("Connection created");
+		Statement stmt = con.createStatement();
+		
+		/*String createQuery="CREATE TABLE MAIN(ID NUMBER(2),NAME VARCHAR(10), SUBJECT VARCHAR(10),MARKS NUMBER(20))";
+		stmt.executeUpdate(createQuery);
+		
+		String insertQuery="insert into MAIN(COLUMN1, COLUMN2 , COLUMN3 COLUMN4) values (1, 'sachin','eng',49)";
+		stmt.executeUpdate(insertQuery);
+		insertQuery="insert into MAIN(COLUMN1,COLUMN2 , COLUMN3, COLUMN4) values (2, 'jeevan','math',43)";
+		stmt.executeUpdate(insertQuery);
+		insertQuery="insert into MAIN(COLUMN1, COLUMN2 , COLUMN3, COLUMN4) values (3, 'rohith','social',47)";
+		stmt.executeUpdate(insertQuery);
+		insertQuery="insert into MAIN(COLUMN1, COLUMN2, COLUMN3,COLUMN4) values (4, 'dhanush','science',50)";
+		stmt.executeUpdate(insertQuery);*/
+		
+		
+		ResultSet rs = stmt.executeQuery("SELECT * FROM MAIN ");
+		
+		System.out.println("Query execution" + rs);
+		
+		while(rs.next()) {
+			System.out.println(rs.getString("COLUMN1") + " : " +  rs.getString("COLUMN2")+ " : " +  rs.getString("COLUMN3")+ " : " +  rs.getString("COLUMN4"));
+		}
+		con.close();
+
+	}
+
+}
+
+
+OUTPUT:
+Connection created
+Query executionoracle.jdbc.driver.ForwardOnlyResultSet@6d026701
+1 : sachin : eng : 49
+2 : jeevan : math : 43
+3 : rohith : social : 47
+4 : dhanush : science : 50
